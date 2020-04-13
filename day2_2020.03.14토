@@ -1,0 +1,51 @@
+module.exports 에는 객체 뿐만아니라 함수도 할당할 수 있다.   
+   
+객체를 할당할 경우:   
+var user = {
+    getUser : function() {
+        return { id: 'tt01', name: '양이'};
+    },
+    group : { id: 'tt02', name: '모찌'}
+}
+module.exports = user;
+
+
+함수를 할당할 경우:
+module.exports = function() {
+    return { id: 'tt03', name: '테리'};
+};
+
+함수를 할당할 경우, 모듈을 불러오는 파일에서는   
+var user = require('./day2_module');    <- require() 한 후에
+function showUser(){
+    return user().name + ', ' + 'No Group';  <- uer()의 형태로 함수를 실행한다.
+}   
+   
+
+
+
+가상으로 require()함수를 정의해서 내부적으로 돌아가는거 알아보기
+var require = function(path) {
+    var exports = { 
+        getUser : function() {
+            return { id : 'test01', name: '도로주행빨리하고싶다'}
+        },
+        group : { id : 'group01', name: '한방에 합격해야징'}
+    }
+    return exports;
+}
+
+
+var user = require(05);
+
+function showUser() {
+    return user.getUser().name + ', ' + user.group.name;
+}
+
+console.log('운전면허 : %s', showUser());
+
+
+
+
+
+
